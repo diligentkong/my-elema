@@ -1,6 +1,7 @@
 <template>
   <div class="star" :class="starType">
-    <span v-for="(itemClass,index) in itemClasses" :class="itemClass" class="star-item" track-by="$index"></span>
+    <span v-for="itemClass in itemClasses" :class="itemClass" class="star-item" track-by="$index"></span>
+    <!--<span v-for="(itemClass,index) in itemClasses" :class="itemClass" class="star-item" track-by="$index"></span>-->
   </div>
 </template>
 
@@ -48,7 +49,7 @@
   @import "../../common/stylus/minxin.styl"
 
   .star
-    font-size: 0
+    /*font-size: 0*/
     .star-item
       display: inline-block
       background-repeat: no-repeat

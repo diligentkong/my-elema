@@ -35,8 +35,7 @@
           <div class="detail-main">
             <h1 class="name">{{seller.name}}</h1>
             <div class="star-wrapper">
-             <!-- <star :size="48" :score="seller.score"></star>-->
-              <star :size="48" :score="3" class="on"></star>
+             <star :size="48" :score="seller.score"></star>
             </div>
             <div class="title">
               <div class="line"></div>
@@ -166,7 +165,6 @@
           .text
             line-height: 12px
             font-size: 10px
-
       .support-count
         position: absolute
         right: 12px

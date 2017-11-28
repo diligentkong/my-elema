@@ -3,15 +3,15 @@
   <div class="ratingselect">
     <div class="rating-type border-1px">
       <span @click="select(2,$event)" class="block positive" :class="{'active':selectType===2}">{{desc.all}}
-        <span>47</span>
+        <span>{{ratings.length}}</span>
       </span>
-      <span class="block positive" :class="{'active':selectType===0}">{{desc.positive}}
-        <span>40</span></span>
-      <span class="block negative" :class="{'active':selectType===1}">{{desc.negative}}
-        <span>7</span></span>
+      <span @click="select(0,$event)" class="block positive" :class="{'active':selectType===0}">{{desc.positive}}
+        <span>{{positives.length}}</span></span>
+      <span @click="select(1,$event)" class="block negative" :class="{'active':selectType===1}">{{desc.negative}}
+        <span>{{negatives.length}}</span></span>
     </div>
     <!-- 可以相互切换-->
-    <div class="switch" :class="{'on':onlyContent}">
+    <div @click="toggleContent" class="switch" :class="{'on':onlyContent}">
       <span class="icon-check_circle"></span>
       <span class="text">只看有内容的评价</span>
     </div>
@@ -19,8 +19,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-  /* const POSITIVE = 0;
-  const NEGATIVE = 1;*/
+  const POSITIVE = 0;
+  const NEGATIVE = 1;
   const ALL = 2;
   export default {
     props: {
@@ -50,8 +50,31 @@
       }
     },
     methods: {
-      select() {
-
+      select(type, event) {
+        if (!event._constructed) {
+          return;
+        }
+        this.selectType = type;
+        this.$dispatch('ratingtype.select', type);
+      },
+      toggleContent(event) {
+        if (!event._constructed) {
+          return;
+        }
+        this.onlyContent = !this.onlyContent;
+        this.$dispatch('content.toggle', this.onlyContent);
+      }
+    },
+    computed: {
+      positives() {
+        return this.ratings.filter((rating) => {
+          return rating.rateType === POSITIVE;
+        });
+      },
+      negatives() {
+        return this.ratings.filter((rating) => {
+          return rating.rateType === NEGATIVE;
+        });
       }
     }
   };
